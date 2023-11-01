@@ -10,4 +10,8 @@ public partial class Employee
     public string? EmpName { get; set; }
 
     public string? EmpDept { get; set; }
+
+    public string? Password { get; set; }
+
+    public string? RoleName { get; set; } = "User";
 }

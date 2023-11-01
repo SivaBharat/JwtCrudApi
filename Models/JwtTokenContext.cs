@@ -35,6 +35,12 @@ public partial class JwtTokenContext : DbContext
             entity.Property(e => e.EmpName)
                 .HasMaxLength(25)
                 .IsUnicode(false);
+            entity.Property(e => e.Password)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.RoleName)
+                .HasMaxLength(10)
+                .IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);

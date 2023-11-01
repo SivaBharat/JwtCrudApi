@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JwtCrud.Models;
 using Microsoft.AspNetCore.Authorization;
+using JwtCrud.CustomAuthorize;
 
 namespace JwtCrud.Controllers{
     [Route("api/[controller]")]
     [ApiController]
+    [TypeFilter(typeof(CustomExceptionFilter))]
     public class EmployeesController : ControllerBase{ 
         private readonly JwtTokenContext _context;
         public EmployeesController(JwtTokenContext context){
             _context = context;
-        }  
-        
+        }
+
+        [Block]
         [HttpGet]
         [Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees(){
@@ -24,8 +27,9 @@ namespace JwtCrud.Controllers{
               return NotFound();
           }
             return await _context.Employees.ToListAsync();
-        }  
-        
+        }
+
+        [Block]
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id){
           if (_context.Employees == null){
